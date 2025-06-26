@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conteo Vehicular con IA - Presentación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 40px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            margin: 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: #34495e;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        p, li {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+        }
+
+        li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-size: 1.1em;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .metric-card {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .metric-title {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            margin: 0 5px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.1em;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            width: 100%;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2em;
+        }
+
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .future-vision {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .future-vision h3 {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.4em; }
+            p, li { font-size: 1.1em; }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Introducción del Proyecto -->
+        <div class="slide active">
+            <h1>🚗 Conteo Vehicular con IA</h1>
+            <div class="highlight">
+                <h3>Objetivo del Proyecto</h3>
+                <p>Desarrollo de una red neuronal para el análisis y detección del tráfico vehicular mediante técnicas de visión computacional en video.</p>
+            </div>
+            
+            <h3>Tipos de Vehículos Detectados:</h3>
+            <ul>
+                <li>🚗 Auto</li>
+                <li>🚲 Bicicleta</li>
+                <li>🚌 Bus MIO</li>
+                <li>🚌 Bus TPC</li>
+                <li>🚛 Camión</li>
+                <li>🏍️ Moto</li>
+                <li>🚶 Peatón</li>
+            </ul>
+            
+            <div class="highlight">
+                <p><strong>Motivación:</strong> Automatizar el conteo vehicular urbano utilizando inteligencia artificial para obtener datos precisos de tráfico en tiempo real.</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Selección del Modelo -->
+        <div class="slide">
+            <h2>Selección del Modelo</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Modelo</th>
+                        <th>Características</th>
+                        <th>Eficiencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>R-CNN</strong></td>
+                        <td>Identifica regiones y objetos por región</td>
+                        <td>Menos eficiente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>YOLO</strong></td>
+                        <td>Detección en una sola pasada</td>
+                        <td>Más eficiente ✅</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SSD</strong></td>
+                        <td>Single Shot Multibox Detector</td>
+                        <td>Moderada</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight">
+                <h3>Decisión Final: YOLOv5</h3>
+                <p>Seleccionado por su balance óptimo entre peso computacional y rendimiento de detección.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Enfoque Elegido</h3>
+                    <p><strong>Aprendizaje por Transferencia</strong></p>
+                    <p>Utilización de modelo pre-entrenado y ajuste mediante fine-tuning, aprovechando conocimiento previo del modelo.</p>
+                </div>
+                <div>
+                    <h3>Ventajas</h3>
+                    <ul>
+                        <li>Menor tiempo de entrenamiento</li>
+                        <li>Mejor precisión con menos datos</li>
+                        <li>Aprovecha conocimiento previo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Retos Técnicos Iniciales -->
+        <div class="slide">
+            <h2>Retos Técnicos Iniciales</h2>
+            
+            <div class="highlight">
+                <h3>🚧 Problema Principal</h3>
+                <p>Limitaciones de hardware - Necesidad de GPU para TensorFlow + CUDA</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Desafío</h3>
+                    <ul>
+                        <li>Falta de GPU adecuada</li>
+                        <li>Entrenamiento con TensorFlow + CUDA</li>
+                        <li>Recursos computacionales limitados</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>💡 Solución</h3>
+                    <ul>
+                        <li>Google Colab (recurso gratuito)</li>
+                        <li>Acceso a TPU especializada</li>
+                        <li>Entrenamiento exitoso del modelo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="future-vision">
+                <h3>Tecnología Utilizada</h3>
+                <p><strong>Google Colab:</strong> Plataforma en la nube que proporcionó acceso gratuito a TPU (Tensor Processing Unit) especializada para entrenamiento de redes neuronales.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Creación y Etiquetado del Dataset -->
+        <div class="slide">
+            <h2>Creación y Etiquetado del Dataset</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Dataset Propio</div>
+                    <div>~2800 imágenes urbanas</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Mínimo Recomendado</div>
+                    <div>>1000 imágenes para precisión</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Herramienta</div>
+                    <div>Roboflow para etiquetado</div>
+                </div>
+            </div>
+
+            <h3>📋 Consideraciones Especiales</h3>
+            <ul>
+                <li><strong>Motos:</strong> Conductor + vehículo = una sola clase "moto"</li>
+                <li><strong>Bicicletas:</strong> Ciclista + bicicleta = una sola clase "bicicleta"</li>
+                <li><strong>Diferenciación:</strong> Separar claramente de peatones</li>
+            </ul>
+
+            <div class="highlight">
+                <h3>🎥 Estrategia de Captura</h3>
+                <p>Cámaras colocadas en diferentes ubicaciones de la ciudad, grabando tanto de día como de noche para contemplar todas las condiciones de iluminación y tráfico.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Entrenamiento del Modelo -->
+        <div class="slide">
+            <h2>Entrenamiento del Modelo</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🔧 Herramientas</h3>
+                    <ul>
+                        <li><strong>Plataforma:</strong> Google Colab</li>
+                        <li><strong>Análisis:</strong> CometML</li>
+                        <li><strong>Técnica:</strong> Fine-tuning YOLOv5</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>📊 División del Dataset</h3>
+                    <ul>
+                        <li><strong>Entrenamiento:</strong> 80%</li>
+                        <li><strong>Validación:</strong> 10%</li>
+                        <li><strong>Test:</strong> 10%</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-block">
+!python train.py \
+--img 640 \
+--batch 16 \
+--epochs 300 \
+--data /content/yolov5/Aforos-automaticos-4/data.yaml \
+--weights yolov5m.pt \
+--hyp /content/yolov5/data/hyps/hyp.scratch-low.yaml \
+--patience 10
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Loss</div>
+                    <div>Tendencia descendente y estable ✅</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">mAP (≥50%)</div>
+                    <div>Aumento gradual y consistente ✅</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Recall</div>
+                    <div>Valores altos y estables ✅</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Precision</div>
+                    <div>Mantenimiento en valores altos ✅</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Inferencia y Seguimiento -->
+        <div class="slide">
+            <h2>Inferencia y Seguimiento</h2>
+            
+            <div class="highlight">
+                <h3>🎯 Problema Identificado</h3>
+                <p>Dificultades en el seguimiento de trayectorias de vehículos entre frames consecutivos usando solo YOLOv5.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Solución Implementada</h3>
+                    <p><strong>YOLOv5 + DeepSort</strong></p>
+                    <ul>
+                        <li>Algoritmo de seguimiento de múltiples objetos</li>
+                        <li>Integración en repositorio especializado</li>
+                        <li>Archivo: "vehicle count con deepsort"</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Archivos de Entrada</h3>
+                    <ul>
+                        <li><strong>Video:</strong> archivo.mp4</li>
+                        <li><strong>Configuración:</strong> coordenadas de detección</li>
+                        <li><strong>Movimientos:</strong> direcciones a contar</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-block">
+command = f"python run.py --input_path='/content/main/demo/sample/{video}.mp4' " \
+f"--output_path='/content/results' " \
+f"--weight={weight_path}"
+            </div>
+
+            <div class="highlight">
+                <h3>📋 Salidas Generadas</h3>
+                <p><strong>CSV con campos:</strong> Track_id, Frame_id, Box, Color, Label, Direction, Fpoint, Lpoint, Fframe, Lframe</p>
+                <p><strong>Video procesado</strong> con detecciones y seguimiento visualizado</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Aplicación de Detección de Cruces -->
+        <div class="slide">
+            <h2>Aplicación de Detección de Cruces</h2>
+            
+            <div class="highlight">
+                <h3>🎮 Herramienta: Godot Engine</h3>
+                <p>Aplicación desarrollada para establecer polígonos de detección y especificar direcciones de movimiento vehicular.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Funcionalidades</h3>
+                    <ul>
+                        <li>Definición de áreas de conteo</li>
+                        <li>Especificación de direcciones</li>
+                        <li>Generación de archivo JSON</li>
+                        <li>Configuración visual interactiva</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Importancia Crítica</h3>
+                    <ul>
+                        <li>Sin archivo JSON = No inferencia</li>
+                        <li>Precisión en coordenadas</li>
+                        <li>Seguimiento direccional correcto</li>
+                        <li>Base para análisis posterior</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="future-vision">
+                <h3>🔗 Integración Clave</h3>
+                <p>Esta aplicación es fundamental para el pipeline completo, ya que sin el archivo JSON generado, el sistema de inferencia y seguimiento no puede determinar correctamente los movimientos vehiculares por dirección.</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Aplicación de Conteo y Análisis -->
+        <div class="slide">
+            <h2>Aplicación de Conteo y Análisis</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🛠️ Tecnologías</h3>
+                    <ul>
+                        <li><strong>Python:</strong> Lenguaje principal</li>
+                        <li><strong>Pandas:</strong> Análisis de datos</li>
+                        <li><strong>Plotly:</strong> Visualizaciones interactivas</li>
+                        <li><strong>Matplotlib:</strong> Gráficos estadísticos</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>📊 Análisis Generados</h3>
+                    <ul>
+                        <li>Conteo total de vehículos</li>
+                        <li>Suma por cada hora</li>
+                        <li>Análisis cada 15 minutos</li>
+                        <li>Identificación de hora pico</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>📁 Archivos de Salida</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">DataFrame Filtrado</div>
+                    <div>Conteo completo de vehículos</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Rango por Hora</div>
+                    <div>Suma vehicular cada 60 min</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Análisis 15 min</div>
+                    <div>Granularidad detallada</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Hora Pico</div>
+                    <div>Archivo de texto identificando máximo tráfico</div>
+                </div>
+            </div>
+
+            <h3>📈 Visualizaciones</h3>
+            <ul>
+                <li><strong>Gráfico de torta:</strong> Porcentaje por tipo de vehículo</li>
+                <li><strong>Gráfico temporal:</strong> Flujo vehicular cada 15 minutos</li>
+            </ul>
+        </div>
+
+        <!-- Slide 9: Retos Resueltos -->
+        <div class="slide">
+            <h2>Retos Resueltos</h2>
+            
+            <div class="highlight">
+                <h3>⚖️ Desbalance de Clases</h3>
+                <p><strong>Problema:</strong> No todos los vehículos tenían igual representación en el dataset inicial (~1500 imágenes).</p>
+                <p><strong>Solución:</strong> Ponderación de pesos sinápticos y segundo entrenamiento enfocado en bicicletas.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Estrategias Implementadas</h3>
+                    <ul>
+                        <li>Equilibrio de pesos sinápticos</li>
+                        <li>Captura adicional de bicicletas</li>
+                        <li>Segundo ciclo de entrenamiento</li>
+                        <li>Validación con CometML</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Mejoras Logradas</h3>
+                    <ul>
+                        <li>Detección correcta de bicicletas</li>
+                        <li>Balance entre todas las clases</li>
+                        <li>Asociación mejorada de objetos</li>
+                        <li>Mayor precisión general</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Entrenamiento 1</div>
+                    <div>Dataset inicial desbalanceado</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Entrenamiento 2</div>
+                    <div>Dataset equilibrado + bicicletas</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Resultado</div>
+                    <div>Modelo balanceado y preciso ✅</div>
+                </div>
+            </div>
+
+            <div class="future-vision">
+                <h3>🔧 Integración Multiplataforma</h3>
+                <p>Exitosa integración entre Google Colab (entrenamiento), Godot (configuración), y Python (análisis), creando un pipeline completo y funcional.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Visión Futura y Escalabilidad -->
+        <div class="slide">
+            <h2>Visión Futura y Escalabilidad</h2>
+            
+            <div class="highlight">
+                <h3>🚀 Google Coral Technology</h3>
+                <p>Plataforma de hardware y software que permite ejecutar modelos de IA directamente en dispositivos físicos mediante Edge TPU.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Ventajas de Coral</h3>
+                    <ul>
+                        <li><strong>Edge Computing:</strong> Procesamiento local</li>
+                        <li><strong>Tiempo Real:</strong> Análisis desde la cámara</li>
+                        <li><strong>Menor Latencia:</strong> Sin dependencia de servidor</li>
+                        <li><strong>Eficiencia:</strong> Acelerador especializado</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Beneficios Operacionales</h3>
+                    <ul>
+                        <li>Reducción de carga en la nube</li>
+                        <li>Menores costos operativos</li>
+                        <li>Mayor autonomía del sistema</li>
+                        <li>Escalabilidad distribuida</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="future-vision">
+                <h3>🌐 Visión de Plataforma Integral</h3>
+                <div class="two-column">
+                    <div>
+                        <h4>Implementación Distribuida</h4>
+                        <ul>
+                            <li>Múltiples dispositivos Coral</li>
+                            <li>Diferentes puntos de la ciudad</li>
+                            <li>Operación autónoma</li>
+                            <li>Envío de datos procesados</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Plataforma Web Centralizada</h4>
+                        <ul>
+                            <li>Centralización de toda la operación</li>
+                            <li>Dashboard en tiempo real</li>
+                            <li>Análisis histórico y predictivo</li>
+                            <li>Gestión de múltiples puntos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h3>📈 Impacto Esperado</h3>
+                <p>Sistema completamente automatizado para monitoreo de tráfico urbano con capacidades de análisis en tiempo real y escalabilidad para implementación a nivel ciudad.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">10</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Anterior</button>
+        <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>

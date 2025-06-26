@@ -297,11 +297,6 @@
                 <p><strong>Motivación:</strong> Automatizar el conteo vehicular urbano utilizando inteligencia artificial para obtener datos precisos de tráfico en tiempo real.</p>
             </div>
 
-            <!-- IMAGEN 1: Aquí va una imagen representativa del proyecto -->
-            <div class="image-container">
-                <img src="imagenes/proyecto-overview.jpg" alt="Vista general del proyecto">
-                <div class="image-caption">Sistema de conteo vehicular con IA en funcionamiento</div>
-            </div>
         </div>
 
         <!-- Slide 2: Selección del Modelo -->
@@ -358,8 +353,8 @@
 
             <!-- IMAGEN 2: Comparación de arquitecturas YOLO vs otros modelos -->
             <div class="image-container">
-                <img src="imagenes/comparacion-modelos.png" alt="Comparación de modelos">
-                <div class="image-caption">Arquitecturas de R-CNN, YOLO y SSD</div>
+                <img src="imagenes/transferlearning.jpg" alt="Comparación de modelos">
+                <div class="image-caption">transfer learning</div>
             </div>
         </div>
 
@@ -397,10 +392,7 @@
             </div>
 
             <!-- IMAGEN 3: Screenshot de Google Colab -->
-            <div class="image-container">
-                <img src="imagenes/google-colab.png" alt="Google Colab interface">
-                <div class="image-caption">Interfaz de Google Colab utilizada para el entrenamiento</div>
-            </div>
+
         </div>
 
         <!-- Slide 4: Creación y Etiquetado del Dataset -->
@@ -436,9 +428,10 @@
 
             <!-- IMAGEN 4: Proceso de etiquetado en Roboflow -->
             <div class="image-container">
-                <img src="imagenes/roboflow-etiquetado.png" alt="Proceso de etiquetado">
-                <div class="image-caption">Etiquetado manual de vehículos en Roboflow</div>
+                <img src="imagenes/clases.png" alt="Google Colab interface">
+                <div class="image-caption">Interfaz de etiquetado en RoboFlow</div>
             </div>
+
         </div>
 
         <!-- Slide 5: Entrenamiento del Modelo -->
@@ -496,9 +489,18 @@
 
             <!-- IMAGEN 5: Gráficos de métricas de CometML -->
             <div class="image-container">
-                <img src="imagenes/metricas-entrenamiento.png" alt="Métricas de entrenamiento">
-                <div class="image-caption">Gráficos de Loss, mAP, Precision y Recall generados por CometML</div>
+                <img src="imagenes/loss.png" alt="resultados">
+                <div class="image-caption">loss vs step</div>
+                <img src="imagenes/map05.png" alt="resultados">
+                <div class="image-caption">MaP05 vs step</div>
+                <img src="imagenes/recall.png" alt="resultados">
+                <div class="image-caption">recall vs step</div>
+                <img src="imagenes/map95.png" alt="resultados">
+                <div class="image-caption">MaP95 vs step</div>
+                <img src="imagenes/precision.png" alt="resultados">
+                <div class="image-caption">precision vs step</div>
             </div>
+
         </div>
 
         <!-- Slide 6: Inferencia y Seguimiento -->
@@ -544,8 +546,10 @@ f"--weight={weight_path}"
 
             <!-- IMAGEN 6: Ejemplo de video procesado con seguimiento -->
             <div class="image-container">
-                <img src="imagenes/video-procesado.png" alt="Video con seguimiento">
-                <div class="image-caption">Frame de video procesado mostrando detección y seguimiento vehicular</div>
+                <img src="imagenes/csv-frames.png" alt="frames">
+                <div class="image-caption">Archivo csv recibido</div>
+                <img src="imagenes/detections.png" alt="detections">
+                <div class="image-caption">clases</div>
             </div>
         </div>
 
@@ -586,7 +590,7 @@ f"--weight={weight_path}"
 
             <!-- IMAGEN 7: Interfaz de la aplicación Godot -->
             <div class="image-container">
-                <img src="imagenes/godot-aplicacion.png" alt="Aplicación Godot">
+                <img src="imagenes/movimientos.png" alt="Aplicación Godot">
                 <div class="image-caption">Interfaz de la aplicación Godot para definir áreas de detección</div>
             </div>
         </div>
@@ -644,8 +648,16 @@ f"--weight={weight_path}"
 
             <!-- IMAGEN 8: Ejemplos de gráficos generados -->
             <div class="image-container">
-                <img src="imagenes/graficos-analisis.png" alt="Gráficos de análisis">
-                <div class="image-caption">Gráficos generados: torta de vehículos y análisis temporal</div>
+                <img src="imagenes/df-filtrado.png" alt="Gráficos de análisis">
+                <div class="image-caption">Gráficos generados: dataframe filtrado</div>
+                <img src="imagenes/df-suma-hora.png" alt="Gráficos de análisis">
+                <div class="image-caption">Gráficos generados: dataframe de suma por hora</div>
+                <img src="imagenes/df-suma-15-minutos.png" alt="Gráficos de análisis">
+                <div class="image-caption">Gráficos generados: dataframe de suma por 15 minutos</div>
+                <img src="imagenes/torta.png" alt="Gráficos de análisis">
+                <div class="image-caption">Gráficos generados: gráfico de torta</div>
+                <img src="imagenes/grafico-15-minutos.png" alt="Gráficos de análisis">
+                <div class="image-caption">Gráficos generados: gráfico rango 15 minutos</div>
             </div>
         </div>
 
@@ -701,12 +713,7 @@ f"--weight={weight_path}"
             </div>
 
             <!-- IMAGEN 9: Comparación antes/después del balanceado -->
-            <div class="image-container">
-                <img src="imagenes/comparacion-entrenamiento.png" alt="Comparación entrenamientos">
-                <div class="image-caption">Comparación de resultados antes y después del balanceado de clases</div>
-            </div>
-        </div>
-
+     
         <!-- Slide 10: Visión Futura y Escalabilidad -->
         <div class="slide">
             <h2>Visión Futura y Escalabilidad</h2>
@@ -768,7 +775,7 @@ f"--weight={weight_path}"
 
             <!-- IMAGEN 10: Visión futura con Google Coral -->
             <div class="image-container">
-                <img src="imagenes/google-coral.png" alt="Google Coral setup">
+                <img src="imagenes/coral.jpg" alt="Google Coral setup">
                 <div class="image-caption">Arquitectura futura con Google Coral para procesamiento en el edge</div>
             </div>
         </div>

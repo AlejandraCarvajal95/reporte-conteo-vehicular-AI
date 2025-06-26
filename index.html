@@ -228,6 +228,28 @@
             color: #fff;
         }
 
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
         @media (max-width: 768px) {
             .slide {
                 padding: 20px;
@@ -273,6 +295,12 @@
             
             <div class="highlight">
                 <p><strong>Motivación:</strong> Automatizar el conteo vehicular urbano utilizando inteligencia artificial para obtener datos precisos de tráfico en tiempo real.</p>
+            </div>
+
+            <!-- IMAGEN 1: Aquí va una imagen representativa del proyecto -->
+            <div class="image-container">
+                <img src="imagenes/proyecto-overview.jpg" alt="Vista general del proyecto">
+                <div class="image-caption">Sistema de conteo vehicular con IA en funcionamiento</div>
             </div>
         </div>
 
@@ -327,6 +355,12 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- IMAGEN 2: Comparación de arquitecturas YOLO vs otros modelos -->
+            <div class="image-container">
+                <img src="imagenes/comparacion-modelos.png" alt="Comparación de modelos">
+                <div class="image-caption">Arquitecturas de R-CNN, YOLO y SSD</div>
+            </div>
         </div>
 
         <!-- Slide 3: Retos Técnicos Iniciales -->
@@ -361,6 +395,12 @@
                 <h3>Tecnología Utilizada</h3>
                 <p><strong>Google Colab:</strong> Plataforma en la nube que proporcionó acceso gratuito a TPU (Tensor Processing Unit) especializada para entrenamiento de redes neuronales.</p>
             </div>
+
+            <!-- IMAGEN 3: Screenshot de Google Colab -->
+            <div class="image-container">
+                <img src="imagenes/google-colab.png" alt="Google Colab interface">
+                <div class="image-caption">Interfaz de Google Colab utilizada para el entrenamiento</div>
+            </div>
         </div>
 
         <!-- Slide 4: Creación y Etiquetado del Dataset -->
@@ -392,6 +432,12 @@
             <div class="highlight">
                 <h3>🎥 Estrategia de Captura</h3>
                 <p>Cámaras colocadas en diferentes ubicaciones de la ciudad, grabando tanto de día como de noche para contemplar todas las condiciones de iluminación y tráfico.</p>
+            </div>
+
+            <!-- IMAGEN 4: Proceso de etiquetado en Roboflow -->
+            <div class="image-container">
+                <img src="imagenes/roboflow-etiquetado.png" alt="Proceso de etiquetado">
+                <div class="image-caption">Etiquetado manual de vehículos en Roboflow</div>
             </div>
         </div>
 
@@ -447,6 +493,12 @@
                     <div>Mantenimiento en valores altos ✅</div>
                 </div>
             </div>
+
+            <!-- IMAGEN 5: Gráficos de métricas de CometML -->
+            <div class="image-container">
+                <img src="imagenes/metricas-entrenamiento.png" alt="Métricas de entrenamiento">
+                <div class="image-caption">Gráficos de Loss, mAP, Precision y Recall generados por CometML</div>
+            </div>
         </div>
 
         <!-- Slide 6: Inferencia y Seguimiento -->
@@ -489,6 +541,12 @@ f"--weight={weight_path}"
                 <p><strong>CSV con campos:</strong> Track_id, Frame_id, Box, Color, Label, Direction, Fpoint, Lpoint, Fframe, Lframe</p>
                 <p><strong>Video procesado</strong> con detecciones y seguimiento visualizado</p>
             </div>
+
+            <!-- IMAGEN 6: Ejemplo de video procesado con seguimiento -->
+            <div class="image-container">
+                <img src="imagenes/video-procesado.png" alt="Video con seguimiento">
+                <div class="image-caption">Frame de video procesado mostrando detección y seguimiento vehicular</div>
+            </div>
         </div>
 
         <!-- Slide 7: Aplicación de Detección de Cruces -->
@@ -524,6 +582,12 @@ f"--weight={weight_path}"
             <div class="future-vision">
                 <h3>🔗 Integración Clave</h3>
                 <p>Esta aplicación es fundamental para el pipeline completo, ya que sin el archivo JSON generado, el sistema de inferencia y seguimiento no puede determinar correctamente los movimientos vehiculares por dirección.</p>
+            </div>
+
+            <!-- IMAGEN 7: Interfaz de la aplicación Godot -->
+            <div class="image-container">
+                <img src="imagenes/godot-aplicacion.png" alt="Aplicación Godot">
+                <div class="image-caption">Interfaz de la aplicación Godot para definir áreas de detección</div>
             </div>
         </div>
 
@@ -577,6 +641,12 @@ f"--weight={weight_path}"
                 <li><strong>Gráfico de torta:</strong> Porcentaje por tipo de vehículo</li>
                 <li><strong>Gráfico temporal:</strong> Flujo vehicular cada 15 minutos</li>
             </ul>
+
+            <!-- IMAGEN 8: Ejemplos de gráficos generados -->
+            <div class="image-container">
+                <img src="imagenes/graficos-analisis.png" alt="Gráficos de análisis">
+                <div class="image-caption">Gráficos generados: torta de vehículos y análisis temporal</div>
+            </div>
         </div>
 
         <!-- Slide 9: Retos Resueltos -->
@@ -628,6 +698,12 @@ f"--weight={weight_path}"
             <div class="future-vision">
                 <h3>🔧 Integración Multiplataforma</h3>
                 <p>Exitosa integración entre Google Colab (entrenamiento), Godot (configuración), y Python (análisis), creando un pipeline completo y funcional.</p>
+            </div>
+
+            <!-- IMAGEN 9: Comparación antes/después del balanceado -->
+            <div class="image-container">
+                <img src="imagenes/comparacion-entrenamiento.png" alt="Comparación entrenamientos">
+                <div class="image-caption">Comparación de resultados antes y después del balanceado de clases</div>
             </div>
         </div>
 
@@ -688,6 +764,12 @@ f"--weight={weight_path}"
             <div class="highlight">
                 <h3>📈 Impacto Esperado</h3>
                 <p>Sistema completamente automatizado para monitoreo de tráfico urbano con capacidades de análisis en tiempo real y escalabilidad para implementación a nivel ciudad.</p>
+            </div>
+
+            <!-- IMAGEN 10: Visión futura con Google Coral -->
+            <div class="image-container">
+                <img src="imagenes/google-coral.png" alt="Google Coral setup">
+                <div class="image-caption">Arquitectura futura con Google Coral para procesamiento en el edge</div>
             </div>
         </div>
     </div>
